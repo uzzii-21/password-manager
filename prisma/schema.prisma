@@ -1,11 +1,73 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  username     String
+  email        String   @unique
+  password     String
+  profileImage String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Owned credentials
+  applicationCredentials ApplicationCredential[]
+  web3Credentials        Web3Credential[]
+
+  // Shared credentials (shared by this user)
+  sharedApplicationCredentials ApplicationCredential[] @relation("SharedApplicationCredentials", map: "SharedApplicationCredentials_fkey")
+  sharedWeb3Credentials        Web3Credential[]        @relation("SharedWeb3Credentials", map: "SharedWeb3Credentials_fkey")
+
+  // Credentials shared with this user
+  receivedApplicationCredentials ApplicationCredential[] @relation("ReceivedApplicationCredentials", map: "ReceivedApplicationCredentials_fkey")
+  receivedWeb3Credentials        Web3Credential[]        @relation("ReceivedWeb3Credentials", map: "ReceivedWeb3Credentials_fkey")
+}
+
+model ApplicationCredential {
+  id        String   @id @default(uuid())
+  username  String
+  email     String
+  password  String
+  tag       String
+  note      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Primary owner
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  // Shared with (optionally shared with another user)
+  sharedWith   User?   @relation("SharedApplicationCredentials", fields: [sharedWithId], references: [id])
+  sharedWithId String?
+
+  // Shared by (user who shared this credential)
+  sharedById String
+  sharedBy   User?  @relation("ReceivedApplicationCredentials", fields: [sharedById], references: [id])
+}
+
+model Web3Credential {
+  id          String   @id @default(uuid())
+  application String
+  password    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Primary owner
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  // Shared with (optionally shared with another user)
+  sharedWith   User?   @relation("SharedWeb3Credentials", fields: [sharedWithId], references: [id])
+  sharedWithId String?
+
+  // Shared by (user who shared this credential)
+  sharedById String
+  sharedBy   User?  @relation("ReceivedWeb3Credentials", fields: [sharedById], references: [id])
 }

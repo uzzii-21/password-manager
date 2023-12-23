@@ -38,11 +38,8 @@ const PasswordList: React.FC<PasswordListProps> = ({ passwordItems }) => {
           />
 
           <div>
-            <h2 className="text-sm font-semibold">{item.name}</h2>
-            <p className="text-xs">{item.email}</p>
-            <div className="flex items-center gap-2">
-              <p className="text-xs">••••••••</p>
-            </div>
+            <h2 className="text-base font-semibold">{item.name}</h2>
+            <p className="text-xs">{item.email}</p> 
           </div>
           <button onClick={copyPassword}>
             <svg
