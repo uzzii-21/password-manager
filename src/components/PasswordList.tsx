@@ -23,12 +23,13 @@ const PasswordList: React.FC<PasswordListProps> = ({ passwordItems }) => {
   };
 
   return (
-    <ul className="space-y-2">
+    <ul className="grid grid-cols-2 gap-4">
       {passwordItems.map((item) => (
         <li
           key={item.name}
-          className="flex items-center gap-4 bg-gray-300 p-2 rounded-xl"
+          className="flex items-center justify-between bg-gray-100 p-2 rounded-xl"
         >
+          <div className="flex items-center gap-4">
           <img
             src={item.imageUrl}
             alt={`${item.name} logo`}
@@ -41,6 +42,8 @@ const PasswordList: React.FC<PasswordListProps> = ({ passwordItems }) => {
             <h2 className="text-base font-semibold">{item.name}</h2>
             <p className="text-xs">{item.email}</p> 
           </div>
+          </div>
+          
           <button onClick={copyPassword}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
