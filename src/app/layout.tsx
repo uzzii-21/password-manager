@@ -19,7 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body style={inter.style}>
         <Navbar />
-        {children}</body>
+        {children}
+      </body>
     </html>
   );
 }

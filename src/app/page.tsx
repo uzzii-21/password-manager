@@ -1,4 +1,3 @@
-"use client";
 import PasswordList from "@/components/PasswordList";
 import SearchBar from "@/components/SearchBar";
 import VaultCard from "@/components/VaultCard";
@@ -48,12 +47,11 @@ const passwordList = [
     password: "<PASSWORD>",
   },
 ];
-export default function Home() {
-  const handleSearch = (query: string) => {
-    // Implement your search logic here
-    console.log("Searching for:", query);
-  };
-
+export default async function Home() {
+  // const handleSearch = (query: string) => {
+  //   // Implement your search logic here
+  //   console.log("Searching for:", query);
+  // };\
   return (
     <main className="container mt-16">
       <section className="grid grid-cols-2 gap-4 my-4">
