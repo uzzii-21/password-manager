@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { motion } from "framer-motion"
 
 interface PasswordItem {
   name: string;
@@ -22,28 +22,50 @@ const PasswordList: React.FC<PasswordListProps> = ({ passwordItems }) => {
     }
   };
 
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.2,
+        staggerChildren: 0.1
+      }
+    }
+  };
+  
+  const itemAnimate = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
+
   return (
-    <ul className="grid grid-cols-2 gap-4">
+    <motion.ul variants={container} initial="hidden"
+    animate="visible"  className="grid grid-cols-2 gap-4">
       {passwordItems.map((item) => (
-        <li
+        <motion.li
+          variants={itemAnimate}
           key={item.name}
           className="flex items-center justify-between bg-gray-100 p-2 rounded-xl"
         >
           <div className="flex items-center gap-4">
-          <img
-            src={item.imageUrl}
-            alt={`${item.name} logo`}
-            width="50"
-            height="50"
-            className="w-[50px] h-[50px] object-cover rounded-lg"
-          />
+            <img
+              src={item.imageUrl}
+              alt={`${item.name} logo`}
+              width="50"
+              height="50"
+              className="w-[50px] h-[50px] object-cover rounded-lg"
+            />
 
-          <div>
-            <h2 className="text-base font-semibold">{item.name}</h2>
-            <p className="text-xs">{item.email}</p> 
+            <div>
+              <h2 className="text-base font-semibold">{item.name}</h2>
+              <p className="text-xs">{item.email}</p>
+            </div>
           </div>
-          </div>
-          
+
           <button onClick={copyPassword}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -60,9 +82,9 @@ const PasswordList: React.FC<PasswordListProps> = ({ passwordItems }) => {
               <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
             </svg>
           </button>
-        </li>
+        </motion.li>
       ))}
-    </ul>
+    </motion.ul>
   );
 };
 
