@@ -1,8 +1,9 @@
 import React from 'react'
 import dynamic from "next/dynamic";
+import Button from './placeholder/button';
 const DrawerModal = dynamic(() => import("./DrawerModal"), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
+  loading: () => <Button />,
 })
 const Navbar = () => {
   return (
