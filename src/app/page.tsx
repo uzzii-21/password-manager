@@ -1,9 +1,11 @@
-import PasswordList from "@/components/PasswordList";
+// import PasswordList from "@/components/PasswordList";
 import RecentList from "@/components/RecentList";
-import SearchBar from "@/components/SearchBar";
 import VaultCard from "@/components/VaultCard";
 import { Icons } from "@/components/icons";
-
+import dynamic from "next/dynamic";
+const PasswordList = dynamic(() => import("@/components/PasswordList"), {
+  loading: () => <p>Loading...</p>,
+})
 export const passwordList = [
   {
     imageUrl:
@@ -49,10 +51,6 @@ export const passwordList = [
   },
 ];
 export default async function Home() {
-  // const handleSearch = (query: string) => {
-  //   // Implement your search logic here
-  //   console.log("Searching for:", query);
-  // };\
   return (
     <main className="container mt-20">
       <section className="grid grid-cols-2 gap-4 mb-6">
@@ -71,8 +69,6 @@ export default async function Home() {
         </h2>
         <PasswordList passwordItems={passwordList} />
       </section>
-
-
     </main>
 
   );
