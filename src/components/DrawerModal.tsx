@@ -25,7 +25,7 @@ const DrawerModal: React.FC<IDrawer> = ({ title, buttonText, children }) => {
           <div className="p-4 bg-white rounded-t-[10px] flex-1">
             <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-8" />
             <div className="max-w-md mx-auto">
-              <Drawer.Title className="font-medium mb-4">{title}</Drawer.Title>
+              {/* <Drawer.Title className="font-medium mb-4">{title}</Drawer.Title> */}
               {children}
             </div>
           </div>
